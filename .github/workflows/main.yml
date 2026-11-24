@@ -26,6 +26,7 @@ jobs:
           python-version: "3.12"
       - name: 홈페이지 만들기
         run: |
+          if [ -d sanmarufarm-add ]; then cp -r sanmarufarm-add/. . ; fi
           pip install pyyaml jinja2
           python build.py
       - uses: actions/configure-pages@v5
