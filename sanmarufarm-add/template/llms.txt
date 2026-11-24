@@ -1,0 +1,19 @@
+# {{ name }} ({{ logo_sub }})
+
+> {{ addr }}에서 직접 농사짓는 가족 농원. {% for c in crops %}강화 {{ c.name }}{{ ', ' if not loop.last }}{% endfor %} 등을 판매합니다.
+
+- 홈페이지: {{ url }}
+- 주소: {{ addr }}
+- 주문·문의: {{ tel }} (전화·문자)
+- 구매 방법: {{ ways_text }}
+- 대량 주문·납품: {{ bulk_note }}
+{% if blog %}- 블로그: {{ blog }}
+{% endif %}
+
+## 작물별 판매 시기
+{% for c in crops %}- 강화 {{ c.name }}: {{ c.when }} — {{ c.desc }}
+{% endfor %}
+
+## 자주 묻는 질문
+{% for f in faq %}- {{ f.q }} {{ f.a }}
+{% endfor %}
