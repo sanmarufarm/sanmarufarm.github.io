@@ -208,6 +208,22 @@
     </div>
   </section>
 
+  {% if reviews %}
+  <!-- 고객 후기 -->
+  <section class="reviews" id="reviews">
+    <div class="wrap">
+      <div class="head rv">
+        <span class="label">고객 후기</span>
+        <h2>드셔 보신 분들이 보내 주신 이야기</h2>
+      </div>
+      <div class="review-grid">
+        {% for r in reviews %}<figure class="review rv"><blockquote>{{ r.text }}</blockquote><figcaption><b>{{ r.name }}</b>{% if r.area %} · {{ r.area }}{% endif %}{% if r.item %}<span>{{ r.item }}</span>{% endif %}</figcaption></figure>{% endfor %}
+
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   <!-- 자주 묻는 질문 -->
   <section class="faq" id="faq">
     <div class="wrap">
@@ -240,6 +256,26 @@
     <p style="margin:24px 0 0">© <span id="yr">{{ year }}</span> {{ name }}</p>
   </div>
 </footer>
+
+<!-- 공유하기 -->
+<div class="share" id="share">
+  <div class="share-panel" id="sharePanel" role="dialog" aria-label="공유하기" aria-hidden="true">
+    <p class="share-title">이 농원 알려 주기</p>
+    <div class="share-grid">
+      <button type="button" data-share="kakao"><i class="s-kakao">톡</i>카카오톡</button>
+      <button type="button" data-share="sms"><i class="s-sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></i>문자</button>
+      <button type="button" data-share="naver"><i class="s-naver">N</i>네이버</button>
+      <button type="button" data-share="band"><i class="s-band">B</i>밴드</button>
+      <button type="button" data-share="facebook"><i class="s-fb">f</i>페이스북</button>
+      <button type="button" data-share="x"><i class="s-x">X</i>엑스</button>
+      <button type="button" data-share="copy" class="wide"><i class="s-copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></i>링크 복사</button>
+    </div>
+  </div>
+  <button type="button" class="share-fab" id="shareFab" aria-label="공유하기" aria-expanded="false" aria-controls="sharePanel">
+    <svg class="ic-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.3M8.3 13.2l7.4 4.3"/></svg>
+    <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
 
 <div class="mbar" aria-label="빠른 연락">
   <a href="tel:{{ tel_digits }}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1z"/></svg>전화하기</a>
@@ -341,6 +377,59 @@ const EMPTY_NOW = {{ empty_now|join('<br>')|tojson }};
     items.forEach(function(el){ io.observe(el); });
   } else { items.forEach(function(el){ el.classList.add('in'); }); }
 })();
+/* 공유하기 */
+(function(){
+  var SHARE_URL = {{ url|tojson }}, SHARE_TEXT = {{ share_text|tojson }}, KAKAO_KEY = {{ kakao_key|tojson }};
+  var IMG = {{ (url ~ 'images/' ~ first_hero)|tojson }};
+  var box = document.getElementById('share'), fab = document.getElementById('shareFab'), panel = document.getElementById('sharePanel');
+  function open(v){ box.classList.toggle('open', v); fab.setAttribute('aria-expanded', v); panel.setAttribute('aria-hidden', !v); }
+  fab.addEventListener('click', function(e){ e.stopPropagation(); open(!box.classList.contains('open')); });
+  document.addEventListener('click', function(e){ if (!box.contains(e.target)) open(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') open(false); });
+  function note(msg){
+    var t = document.getElementById('toast');
+    if (!t){ t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(function(){ t.classList.remove('on'); }, 3000);
+  }
+  function copy(text){
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    return new Promise(function(ok, no){ try { var ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy') ? ok() : no(); document.body.removeChild(ta); } catch(e){ no(e); } });
+  }
+  function popup(u){ window.open(u, '_blank', 'noopener,width=600,height=640'); }
+  var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var enc = encodeURIComponent;
+  if (KAKAO_KEY && window.Kakao && !Kakao.isInitialized()) { try { Kakao.init(KAKAO_KEY); } catch(e){} }
+  var act = {
+    copy: function(){ copy(SHARE_URL).then(function(){ note('홈페이지 주소를 복사했어요.'); }, function(){ note(SHARE_URL); }); },
+    kakao: function(){
+      if (KAKAO_KEY && window.Kakao && Kakao.isInitialized()) {
+        Kakao.Share.sendDefault({ objectType: 'feed', content: { title: FARM, description: SHARE_TEXT, imageUrl: IMG, link: { mobileWebUrl: SHARE_URL, webUrl: SHARE_URL } } });
+      } else if (navigator.share) {
+        navigator.share({ title: FARM, text: SHARE_TEXT, url: SHARE_URL }).catch(function(){});
+      } else {
+        copy(SHARE_TEXT + '\n' + SHARE_URL).then(function(){ note('주소를 복사했어요. 카카오톡 대화창에 붙여넣어 주세요.'); });
+      }
+    },
+    sms: function(){ location.href = 'sms:' + (ios ? '&' : '?') + 'body=' + enc(SHARE_TEXT + '\n' + SHARE_URL); },
+    naver: function(){ popup('https://share.naver.com/web/shareView?url=' + enc(SHARE_URL) + '&title=' + enc(SHARE_TEXT)); },
+    band: function(){ popup('https://band.us/plugin/share?body=' + enc(SHARE_TEXT + '\n' + SHARE_URL) + '&route=' + enc(SHARE_URL)); },
+    facebook: function(){ popup('https://www.facebook.com/sharer/sharer.php?u=' + enc(SHARE_URL)); },
+    x: function(){ popup('https://twitter.com/intent/tweet?url=' + enc(SHARE_URL) + '&text=' + enc(SHARE_TEXT)); }
+  };
+  panel.querySelectorAll('[data-share]').forEach(function(b){
+    b.addEventListener('click', function(){ act[b.getAttribute('data-share')](); open(false); });
+  });
+})();
 </script>
+{% if kakao_key %}<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js" crossorigin="anonymous"></script>
+{% endif %}
+{% if naver_wa %}<script src="https://wcs.naver.net/wcslog.js"></script>
+<script>
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = {{ naver_wa|tojson }};
+if(window.wcs) { wcs_do(); }
+</script>
+{% endif %}
 </body>
 </html>

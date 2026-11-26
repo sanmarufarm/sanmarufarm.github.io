@@ -333,3 +333,49 @@ footer .credits a{color:#b7baae}
 .sms-hint{margin:14px 0 0;font-size:13px;opacity:.7}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translate(-50%,20px);z-index:60;max-width:calc(100% - 32px);background:rgba(30,30,26,.92);color:#fff;font-size:14px;line-height:1.5;padding:12px 18px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* 고객 후기 */
+.reviews{background:var(--paper)}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{margin:0;background:var(--white);border-radius:20px;padding:34px 30px 28px;position:relative}
+.review::before{content:"“";position:absolute;top:8px;left:22px;font-family:var(--serif);font-size:64px;line-height:1;color:var(--stamp);opacity:.35}
+.review blockquote{margin:14px 0 22px;font-size:16px;line-height:1.8}
+.review figcaption{font-size:14px;color:var(--sub);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.review figcaption b{color:var(--ink);font-weight:500}
+.review figcaption span{margin-left:auto;font-size:12px;color:var(--stamp);border:1px solid currentColor;border-radius:999px;padding:1px 10px}
+
+/* 공유하기 버튼 */
+.share{position:fixed;right:24px;bottom:28px;z-index:55}
+.share-fab{width:58px;height:58px;border-radius:50%;border:0;background:var(--deep);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 28px -8px rgba(0,0,0,.45);transition:transform .25s,background .25s}
+.share-fab:hover{transform:translateY(-2px);background:var(--olive)}
+.share-fab svg{width:24px;height:24px;grid-area:1/1;transition:opacity .2s,transform .25s}
+.share-fab .ic-close{opacity:0;transform:rotate(-45deg)}
+.share.open .share-fab .ic-share{opacity:0;transform:rotate(45deg)}
+.share.open .share-fab .ic-close{opacity:1;transform:none}
+.share-panel{position:absolute;right:0;bottom:72px;width:300px;background:var(--white);border-radius:20px;padding:20px 18px 16px;box-shadow:0 18px 48px -14px rgba(0,0,0,.35);opacity:0;visibility:hidden;transform:translateY(10px) scale(.98);transform-origin:bottom right;transition:opacity .25s,transform .25s,visibility .25s}
+.share.open .share-panel{opacity:1;visibility:visible;transform:none}
+.share-title{margin:0 0 14px;font-family:var(--serif);font-weight:700;font-size:16px;text-align:center}
+.share-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px}
+.share-grid button{border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;font-size:12.5px;color:var(--ink);padding:4px 0;border-radius:12px}
+.share-grid button:hover{background:var(--paper)}
+.share-grid i{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:17px;color:#fff}
+.share-grid i svg{width:20px;height:20px}
+.share-grid .wide{grid-column:1/-1;flex-direction:row;justify-content:center;gap:10px;background:var(--paper);padding:10px 0;font-size:14px}
+.share-grid .wide i{width:30px;height:30px;background:var(--deep)}
+.share-grid .wide i svg{width:16px;height:16px}
+.s-kakao{background:#fee500;color:#3a1d1d !important;font-size:15px !important}
+.s-sms{background:var(--stamp)}
+.s-naver{background:#03c75a}
+.s-band{background:#00c73c}
+.s-fb{background:#1877f2;font-family:Arial,sans-serif}
+.s-x{background:#111;font-family:Arial,sans-serif}
+
+@media (max-width:1024px){ .review-grid{grid-template-columns:1fr} }
+@media (max-width:720px){
+  .share{right:14px;bottom:calc(80px + env(safe-area-inset-bottom))}
+  .share-fab{width:52px;height:52px}
+  .share-panel{width:min(300px,calc(100vw - 28px));bottom:64px}
+  body.menu-open .share{opacity:0;pointer-events:none}
+  .review{padding:30px 22px 22px}
+  .review blockquote{font-size:15px}
+}
