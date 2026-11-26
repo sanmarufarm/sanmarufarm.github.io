@@ -238,6 +238,12 @@ def main():
         ld_faq=json.dumps(ld_faq, ensure_ascii=False),
         today=now.strftime("%Y-%m-%d"), year=now.year,
         sms_body=str(d.get("문자양식") or "").strip(),
+        reviews=[{"name": str(r.get("이름") or "").strip(), "area": str(r.get("지역") or "").strip(),
+                  "item": str(r.get("품목") or "").strip(), "text": str(r.get("내용") or "").strip()}
+                 for r in (d.get("고객후기") or []) if isinstance(r, dict) and r.get("내용")],
+        naver_wa=str(d.get("네이버애널리틱스ID") or "").strip(),
+        kakao_key=str(d.get("카카오JS키") or "").strip(),
+        share_text=str(d.get("공유문구") or name).strip(),
         ways_text=", ".join(w.get("제목", "") for w in d.get("구매방법") or []),
     )
 
