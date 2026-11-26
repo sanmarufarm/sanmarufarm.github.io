@@ -38,7 +38,7 @@
 </svg>
 {% endmacro %}
 {% macro pic(file, alt, label, cls='pic', extra='') %}{% if file %}<div class="{{ cls }}"{{ extra|safe }}><img src="images/{{ file }}" alt="{{ alt }}" loading="lazy"></div>{% else %}<div class="{{ cls }} noimg" role="img" aria-label="{{ alt }}"{{ extra|safe }}><span>{{ label.split('(')[0] }}</span></div>{% endif %}{% endmacro %}
-{% set menu = [('about','농원소개'),('crops','판매품목'),('calendar','판매달력'),('buy','구매방법'),('contact','주문·문의'),('visit','오시는길'),('diary','농장일기')] %}
+{% set menu = [('about','농원소개'),('crops','판매품목'),('buy','구매방법'),('contact','주문·문의'),('visit','오시는길'),('diary','농장일기')] %}
 
 <header class="hd" id="hd">
   <div class="wrap">
@@ -61,7 +61,7 @@
   </nav>
   <div class="d-contact">
     <a class="btn fill" href="tel:{{ tel_digits }}">전화하기</a>
-    <a class="btn line" href="sms:{{ tel_digits }}">문자하기</a>
+    <a class="btn line" href="sms:{{ tel_digits }}" data-sms>문자하기</a>
   </div>
   <p class="d-addr">{{ addr }}</p>
 </div>
@@ -131,25 +131,6 @@
     </div>
   </section>
 
-  <!-- 판매달력 -->
-  <section class="calendar" id="calendar">
-    <div class="wrap">
-      <div class="head rv">
-        <span class="label">판매달력</span>
-        <h2>강화 농산물 월별 판매 달력</h2>
-        <p>몇 월에 어떤 작물을 살 수 있는지 계절별로 정리했습니다.</p>
-      </div>
-      <div class="cal rv">
-        {% for s in calendar %}<div class="season"><div class="sname"><b>{{ s.name }}</b><span>{{ s.range }}</span></div>
-          {% for m in s.months %}<div class="mon{{ ' cur' if m.m == cur }}" data-m="{{ m.m }}"><span class="tag">이번 달</span><div class="num">{{ m.m }}<small>월</small></div>{% if m.crops %}<ul>{% for n in m.crops %}<li>{{ n }}</li>{% endfor %}</ul>{% else %}<div class="empty">{{ empty_month }}</div>{% endif %}</div>{% endfor %}
-        </div>
-        {% endfor %}
-      </div>
-      {% if year_round %}<p class="all-year rv"><b>사계절 판매</b>{% for c in year_round %}<span>{{ c.name }}</span>{% endfor %}</p>{% endif %}
-      <p class="cal-note">재고가 떨어지면 판매 기간 안이라도 마감될 수 있습니다.</p>
-    </div>
-  </section>
-
   <!-- 구매방법 -->
   <section id="buy">
     <div class="wrap">
@@ -179,8 +160,9 @@
         <a class="bigtel" href="tel:{{ tel_digits }}">{{ tel }}</a>
         <div class="btns">
           <a class="btn fill" href="tel:{{ tel_digits }}">전화 걸기</a>
-          <a class="btn w" href="sms:{{ tel_digits }}">문자 보내기</a>
+          <a class="btn w" href="sms:{{ tel_digits }}" data-sms>문자 보내기</a>
         </div>
+        <p class="sms-hint">문자 보내기를 누르면 주문 양식이 자동으로 채워집니다.</p>
       </div>
       <div class="col rv" id="bulk">
         <span class="label">대량 주문 · 납품 문의</span>
@@ -252,22 +234,20 @@
         {% for c in crops %}강화 {{ c.name }}{{ ' · ' if not loop.last }}{% endfor %}
       </div>
     </div>
-    {% if credits %}<details>
-      <summary>사진 출처</summary>
-      <div class="credits">{% for c in credits %}{{ c.text }}{% if c.link %} <a href="{{ c.link }}" target="_blank" rel="noopener">원본</a>{% endif %}{{ ' · ' if not loop.last }}{% endfor %}<br>위키미디어 공용(Wikimedia Commons)의 공개 라이선스 사진을 사용했습니다.</div>
-    </details>{% endif %}
     <p style="margin:24px 0 0">© <span id="yr">{{ year }}</span> {{ name }}</p>
   </div>
 </footer>
 
 <div class="mbar" aria-label="빠른 연락">
   <a href="tel:{{ tel_digits }}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1z"/></svg>전화하기</a>
-  <a href="sms:{{ tel_digits }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>문자하기</a>
+  <a href="sms:{{ tel_digits }}" data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>문자하기</a>
 </div>
 
 <script>
 const CROPS = {{ crops_js|safe }};
 const FARM = {{ name|tojson }};
+const TEL = {{ tel_digits|tojson }};
+const SMS_BODY = {{ sms_body|tojson }};
 const SEASONAL = CROPS.filter(function(c){ return !c.all_year; });
 const EMPTY_NOW = {{ empty_now|join('<br>')|tojson }};
 (function(){
@@ -299,8 +279,11 @@ const EMPTY_NOW = {{ empty_now|join('<br>')|tojson }};
     : '<div class="rest-box" style="grid-column:1/-1;flex:1 0 100%">' + EMPTY_NOW + '</div>';
   document.getElementById('nextLine').innerHTML = nx ? '<span>다음 판매 예정 &nbsp;·&nbsp; <b>' + esc(nx) + '</b></span>' : '';
 
-  /* 달력에서 이번 달 표시 */
-  document.querySelectorAll('.mon').forEach(function(el){ el.classList.toggle('cur', +el.dataset.m === cur); });
+  /* 문자 주문 양식 자동 입력 (아이폰/안드로이드) */
+  var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  document.querySelectorAll('a[data-sms]').forEach(function(a){
+    a.href = 'sms:' + TEL + (ios ? '&' : '?') + 'body=' + encodeURIComponent(SMS_BODY);
+  });
 
   /* 헤더: 스크롤하면 흰 배경 */
   var hd = document.getElementById('hd');
