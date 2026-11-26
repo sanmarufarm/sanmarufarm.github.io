@@ -72,7 +72,7 @@ def copy_images():
         except Exception:
             Image = None
     for f in sorted(IMG.iterdir()):
-        if not f.is_file():
+        if not f.is_file() or f.name not in used_photos:   # 홈페이지에 쓰는 사진만 올림
             continue
         if Image and f.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp") and f.stat().st_size > 400_000:
             try:
@@ -237,6 +237,7 @@ def main():
         ld_business=json.dumps(ld_business, ensure_ascii=False),
         ld_faq=json.dumps(ld_faq, ensure_ascii=False),
         today=now.strftime("%Y-%m-%d"), year=now.year,
+        sms_body=str(d.get("문자양식") or "").strip(),
         ways_text=", ".join(w.get("제목", "") for w in d.get("구매방법") or []),
     )
 
