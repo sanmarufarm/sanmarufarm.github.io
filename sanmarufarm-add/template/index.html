@@ -96,7 +96,6 @@
         {% for c in on_sale %}<article class="item hz">{{ pic(c.photo, '강화 ' ~ c.name ~ ' - ' ~ name, c.name) }}<h3>{{ c.name }}</h3><div class="when">{{ c.when }}</div><p>{{ c.desc }}</p></article>{% endfor %}
         {% if not on_sale %}<div class="rest-box" style="grid-column:1/-1;flex:1 0 100%">{{ empty_now|join('<br>'|safe) }}</div>{% endif %}
       </div>
-      <p class="next-line rv" id="nextLine">{% if nxt %}<span>다음 판매 예정 &nbsp;·&nbsp; <b>{{ nxt }}</b></span>{% endif %}</p>
     </div>
   </section>
 
@@ -281,7 +280,6 @@ const EMPTY_NOW = {{ empty_now|join('<br>')|tojson }};
   grid.className = 'now-grid' + (list.length && list.length < 4 ? ' n' + list.length : '');
   grid.innerHTML = list.length ? list.map(card).join('')
     : '<div class="rest-box" style="grid-column:1/-1;flex:1 0 100%">' + EMPTY_NOW + '</div>';
-  document.getElementById('nextLine').innerHTML = nx ? '<span>다음 판매 예정 &nbsp;·&nbsp; <b>' + esc(nx) + '</b></span>' : '';
 
   /* 문자 주문 양식 자동 입력 (아이폰/안드로이드) */
   var ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
