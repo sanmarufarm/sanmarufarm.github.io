@@ -19,7 +19,7 @@
 <meta property="og:url" content="{{ url }}">
 <meta property="og:title" content="{{ name }} | 강화 {{ addr.split()[3] if addr.split()|length > 3 else '' }} 농산물 직거래">
 <meta property="og:description" content="직접 기른 강화 {{ top3 }}. 농원 방문, 택배 주문, 대량 납품 문의 {{ tel }}">
-<meta property="og:image" content="{{ url }}images/{{ hero['사진'][0]['파일'] }}">
+<meta property="og:image" content="{{ url }}images/{{ first_hero }}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +37,8 @@
   <path d="M12.5 43 C19 41.2 29 41.2 35.5 43" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".45"/>
 </svg>
 {% endmacro %}
-{% set menu = [('about','농원소개'),('crops','판매작물'),('calendar','판매달력'),('buy','구매방법'),('contact','주문·문의'),('visit','오시는길'),('diary','농장일기')] %}
+{% macro pic(file, alt, label, cls='pic', extra='') %}{% if file %}<div class="{{ cls }}"{{ extra|safe }}><img src="images/{{ file }}" alt="{{ alt }}" loading="lazy"></div>{% else %}<div class="{{ cls }} noimg" role="img" aria-label="{{ alt }}"{{ extra|safe }}><span>{{ label.split('(')[0] }}</span></div>{% endif %}{% endmacro %}
+{% set menu = [('about','농원소개'),('crops','판매품목'),('calendar','판매달력'),('buy','구매방법'),('contact','주문·문의'),('visit','오시는길'),('diary','농장일기')] %}
 
 <header class="hd" id="hd">
   <div class="wrap">
@@ -68,7 +69,7 @@
 <main id="top">
   <!-- 첫 화면 -->
   <div class="hero" id="hero">
-    {% for p in hero['사진'] %}<div class="slide{{ ' on' if loop.first }}"><img src="images/{{ p['파일'] }}" alt="{{ p['설명'] }}"{{ ' loading="lazy"'|safe if not loop.first }}></div>{% endfor %}
+    {% for p in hero_photos %}<div class="slide{{ ' on' if loop.first }}"><img src="images/{{ p.file }}" alt="{{ p.alt }}"{{ ' loading="lazy"'|safe if not loop.first }}></div>{% endfor %}
 
     <div class="wrap">
       <div class="loc">{{ hero['위치글'] }}</div>
@@ -79,7 +80,7 @@
         <a class="btn fill" href="tel:{{ tel_digits }}">전화 문의 {{ tel }}</a>
       </div>
     </div>
-    <div class="counter" aria-hidden="true"><span id="sNo">01</span><span class="bar"><i id="sBar"></i></span><span>{{ '%02d'|format(hero['사진']|length) }}</span></div>
+    <div class="counter" aria-hidden="true"><span id="sNo">01</span><span class="bar"><i id="sBar"></i></span><span>{{ '%02d'|format(hero_photos|length) }}</span></div>
   </div>
 
   <!-- 이달의 작물 (처음 보이는 내용은 만든 날 기준, 방문한 달에 맞춰 다시 그림) -->
@@ -92,7 +93,7 @@
       </div>
       <div class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요</div>
       <div class="now-grid{{ (' n' ~ on_sale|length) if on_sale and on_sale|length < 4 }}" id="nowGrid">
-        {% for c in on_sale %}<article class="item hz"><div class="pic"><img src="images/{{ c.photo }}" alt="강화 {{ c.name }} - {{ name }}" loading="lazy"></div><h3>{{ c.name }}</h3><div class="when">{{ c.when }}</div><p>{{ c.desc }}</p></article>{% endfor %}
+        {% for c in on_sale %}<article class="item hz">{{ pic(c.photo, '강화 ' ~ c.name ~ ' - ' ~ name, c.name) }}<h3>{{ c.name }}</h3><div class="when">{{ c.when }}</div><p>{{ c.desc }}</p></article>{% endfor %}
         {% if not on_sale %}<div class="rest-box" style="grid-column:1/-1;flex:1 0 100%">{{ empty_now|join('<br>'|safe) }}</div>{% endif %}
       </div>
       <p class="next-line rv" id="nextLine">{% if nxt %}<span>다음 판매 예정 &nbsp;·&nbsp; <b>{{ nxt }}</b></span>{% endif %}</p>
@@ -102,7 +103,7 @@
   <!-- 농원소개 -->
   <section class="about" id="about">
     <div class="wrap">
-      <div class="pic rv"><img src="images/{{ about['사진'] }}" alt="강화도 {{ addr.split()[3] if addr.split()|length > 3 else '' }} 들녘 풍경" loading="lazy"></div>
+      <div class="pic rv"><img src="images/{{ about_photo }}" alt="강화도 {{ addr.split()[3] if addr.split()|length > 3 else '' }} 들녘 풍경" loading="lazy"></div>
       <div class="rv">
         <span class="label">농원소개</span>
         <h2>{{ about_title|join('<br>'|safe) }}</h2>
@@ -113,17 +114,20 @@
     </div>
   </section>
 
-  <!-- 판매작물 -->
+  <!-- 판매품목 -->
   <section id="crops">
     <div class="wrap">
       <div class="head rv">
-        <span class="label">판매작물</span>
+        <span class="label">판매품목</span>
         <h2>{{ name }}에서 기르는<br class="mo"> 강화 농산물</h2>
       </div>
+      {% for g in groups %}
+      {% if g.name %}<h3 class="group-title rv">{{ g.name }}</h3>{% endif %}
       <div class="crop-grid">
-        {% for c in crops %}<article class="crop hz rv"><div class="pic"><img src="images/{{ c.photo }}" alt="강화 {{ c.name }} - 강화 {{ name }}" loading="lazy"></div><div class="txt"><h3>{{ c.name }}</h3><div class="when">판매 {{ c.when }}</div><p>{{ c.desc }}</p></div></article>{% endfor %}
+        {% for c in g['items'] %}<article class="crop hz rv">{{ pic(c.photo, '강화 ' ~ c.name ~ ' - 강화 ' ~ name, c.name) }}<div class="txt"><h3>{{ c.name }}</h3><div class="when">판매 {{ c.when }}</div><p>{{ c.desc }}</p></div></article>{% endfor %}
 
       </div>
+      {% endfor %}
     </div>
   </section>
 
@@ -141,6 +145,7 @@
         </div>
         {% endfor %}
       </div>
+      {% if year_round %}<p class="all-year rv"><b>사계절 판매</b>{% for c in year_round %}<span>{{ c.name }}</span>{% endfor %}</p>{% endif %}
       <p class="cal-note">재고가 떨어지면 판매 기간 안이라도 마감될 수 있습니다.</p>
     </div>
   </section>
@@ -201,7 +206,7 @@
           <a class="btn line" href="https://map.kakao.com/?q={{ addr|urlencode }}" target="_blank" rel="noopener">카카오맵</a>
         </div>
       </div>
-      <div class="pic rv"><img src="images/{{ hero['사진'][0]['파일'] }}" alt="{{ addr.split()[1:4]|join(' ') }} 들녘" loading="lazy"></div>
+      <div class="pic rv"><img src="images/{{ first_hero }}" alt="{{ addr.split()[1:4]|join(' ') }} 들녘" loading="lazy"></div>
     </div>
   </section>
 
@@ -215,7 +220,7 @@
       </div>
       <div class="swipe-hint" aria-hidden="true">옆으로 넘겨 보세요</div>
       <div class="diary-grid">
-        {% for p in diary %}<article class="post hz rv"><div class="pic"><img src="images/{{ p['사진'] }}" alt="강화 {{ name }} {{ p['제목'] }}" loading="lazy"></div><div class="meta">{{ p['때'] }}</div><h3>{{ p['제목'] }}</h3><p>{{ p['내용'] }}</p></article>{% endfor %}
+        {% for p in diary %}<article class="post hz rv">{{ pic(p.photo, '강화 ' ~ name ~ ' ' ~ p.title, p.title) }}<div class="meta">{{ p.when }}</div><h3>{{ p.title }}</h3><p>{{ p.text }}</p></article>{% endfor %}
 
       </div>
       {% if blog %}<p style="text-align:center;margin-top:44px"><a class="btn line" href="{{ blog }}" target="_blank" rel="noopener">블로그에서 농장 소식 더 보기</a></p>{% endif %}
@@ -249,7 +254,7 @@
     </div>
     {% if credits %}<details>
       <summary>사진 출처</summary>
-      <div class="credits">{% for c in credits %}{{ c.text }}{% if c.link %} <a href="{{ c.link }}" target="_blank" rel="noopener">원본</a>{% endif %}{{ ' · ' if not loop.last }}{% endfor %}<br>임시 사진입니다. 위키미디어 공용(Wikimedia Commons)의 공개 라이선스 사진을 사용했습니다.</div>
+      <div class="credits">{% for c in credits %}{{ c.text }}{% if c.link %} <a href="{{ c.link }}" target="_blank" rel="noopener">원본</a>{% endif %}{{ ' · ' if not loop.last }}{% endfor %}<br>위키미디어 공용(Wikimedia Commons)의 공개 라이선스 사진을 사용했습니다.</div>
     </details>{% endif %}
     <p style="margin:24px 0 0">© <span id="yr">{{ year }}</span> {{ name }}</p>
   </div>
@@ -263,19 +268,23 @@
 <script>
 const CROPS = {{ crops_js|safe }};
 const FARM = {{ name|tojson }};
+const SEASONAL = CROPS.filter(function(c){ return !c.all_year; });
 const EMPTY_NOW = {{ empty_now|join('<br>')|tojson }};
 (function(){
   var now = new Date(), cur = now.getMonth() + 1;
   var yr = document.getElementById('yr'); if (yr) yr.textContent = now.getFullYear();
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function card(c){
-    return '<article class="item hz"><div class="pic"><img src="images/' + esc(c.photo) + '" alt="강화 ' + esc(c.name) + ' - ' + esc(FARM) + '" loading="lazy"></div><h3>' + esc(c.name) + '</h3><div class="when">' + esc(c.when) + '</div><p>' + esc(c.desc) + '</p></article>';
+    var alt = '강화 ' + esc(c.name) + ' - ' + esc(FARM);
+    var pic = c.photo ? '<div class="pic"><img src="images/' + esc(c.photo) + '" alt="' + alt + '" loading="lazy"></div>'
+      : '<div class="pic noimg" role="img" aria-label="' + alt + '"><span>' + esc(c.name.split('(')[0]) + '</span></div>';
+    return '<article class="item hz">' + pic + '<h3>' + esc(c.name) + '</h3><div class="when">' + esc(c.when) + '</div><p>' + esc(c.desc) + '</p></article>';
   }
-  function sale(m){ return CROPS.filter(function(c){ return c.season.indexOf(m) !== -1; }); }
+  function sale(m){ return SEASONAL.filter(function(c){ return c.season.indexOf(m) !== -1; }); }
   function nextStart(m){
     for (var i = 1; i <= 12; i++){
       var mm = (m - 1 + i) % 12 + 1;
-      var s = CROPS.filter(function(c){ return c.season[0] === mm && c.season.indexOf(m) === -1; });
+      var s = SEASONAL.filter(function(c){ return c.season[0] === mm && c.season.indexOf(m) === -1; });
       if (s.length) return mm + '월 ' + s.map(function(c){ return c.name; }).join(', ');
     }
     return '';
