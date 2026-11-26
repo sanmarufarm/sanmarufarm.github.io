@@ -74,13 +74,13 @@
     분류: 채소
     판매시작: 6
     판매끝: 7
-    사진: ""
+    사진: crop-potato.jpg
     설명: 하지 무렵 캐는 햇감자. 찌거나 볶아 드시기 좋습니다.
   - 이름: 오이
     분류: 채소
     판매시작: 6
     판매끝: 9
-    사진: ""
+    사진: crop-cucumber.jpg
     설명: 아침에 딴 오이를 그날 포장해 보냅니다. 오이지·오이소박이용으로 좋습니다.
   - 이름: 고구마
     분류: 채소
@@ -123,7 +123,7 @@
     분류: 쌀·잡곡
     판매시작: 9
     판매끝: 2
-    사진: ""
+    사진: crop-sesame.jpg
     설명: 직접 베어 말리고 털어낸 국산 참깨입니다.
   - 이름: 들깨
     분류: 쌀·잡곡
@@ -137,7 +137,7 @@
     분류: 고춧가루·기름·장·김치
     판매시작: 9
     판매끝: 3
-    사진: ""
+    사진: crop-gochugaru.jpg
     설명: 붉은 고추의 꼭지를 따고 깨끗이 씻어 말린 뒤 빻았습니다. 김장철에는 미리 주문해 주세요.
   - 이름: 들기름
     분류: 고춧가루·기름·장·김치
@@ -201,7 +201,7 @@
 농장일기:
   - 제목: 고추 따는 날
     때: 여름
-    사진: ""
+    사진: crop-green-pepper.jpg
     내용: 풋고추부터 붉게 익은 고추까지, 여름 내내 며칠에 한 번씩 고추밭을 돕니다.
   - 제목: 고추 손질하기
     때: 늦여름
@@ -217,7 +217,7 @@
     내용: 베어낸 깻단을 세워 말린 뒤 두드려 깨를 텁니다.
   - 제목: 장 보러 가는 날
     때: 장날
-    사진: ""
+    사진: diary-market.jpg
     내용: 장날이면 그날 거둔 작물을 싣고 장에 나갈 때가 있습니다.
   - 제목: 강화 들녘
     때: 사계절
@@ -244,3 +244,47 @@
     답: 네. {주소} 농원에서 직접 보고 사실 수 있습니다. 밭일로 자리를 비울 때가 있으니 오시기 전에 전화 주세요.
   - 질문: 강화풍물시장 장날에도 판매하나요?
     답: 강화읍 강화풍물시장 장날(2·7일장)에 나가 판매할 때가 있습니다. 매번 나가지는 않으니 전화로 미리 확인해 주세요.
+
+# ---------- 사진 출처 ----------
+# 위키미디어 공용의 임시 사진 출처입니다. 홈페이지에 실제로 쓰이는 사진의 출처만 자동으로 표시됩니다.
+# 직접 찍은 사진은 여기에 적을 필요가 없습니다.
+사진출처:
+  - 파일: hero-1-ganghwa-field.jpg
+    출처: "A Field in Ganghwa Island.jpg — Nt, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_Field_in_Ganghwa_Island.jpg"
+  - 파일: hero-2-drying-chillies.jpg
+    출처: "Drying Korean chillies.jpg — ASADAL, Inc., CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Drying_Korean_chillies.jpg"
+  - 파일: hero-3-drying-sesame.jpg
+    출처: "Drying sesame stalks.jpg — Fumikas Sagisavas, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:Drying_sesame_stalks.jpg"
+  - 파일: about-ganghwa-road.jpg
+    출처: "A Road between Paddies in Ganghwa Island.jpg — Nt, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_Road_between_Paddies_in_Ganghwa_Island.jpg"
+  - 파일: crop-potato.jpg
+    출처: "Patate appena raccolte.jpg — PROPOLI87, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Patate_appena_raccolte.jpg"
+  - 파일: crop-cucumber.jpg
+    출처: "조선오이.jpg — 킹덤, CC BY 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:%EC%A1%B0%EC%84%A0%EC%98%A4%EC%9D%B4.jpg"
+  - 파일: crop-green-pepper.jpg
+    출처: "Korean chilli.jpg — Park Jong-jin, CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean_chilli.jpg"
+  - 파일: crop-gochugaru.jpg
+    출처: "Korean chilli powder.jpg — ASADAL, Inc., CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean_chilli_powder.jpg"
+  - 파일: crop-sweet-potato.jpg
+    출처: "Korean's Sweet Potatoes on the basket in Vegetable Shop at Tuen Mun.jpg — Peachyeung316, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean%27s_Sweet_Potatoes_on_the_basket_in_Vegetable_Shop_at_Tuen_Mun.jpg"
+  - 파일: crop-sesame.jpg
+    출처: "A sesame plant with flowers and pods.jpg — Sanjib Chaudhary, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_sesame_plant_with_flowers_and_pods.jpg"
+  - 파일: crop-perilla.jpg
+    출처: "Perilla seeds.jpg — ally j, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:Perilla_seeds.jpg"
+  - 파일: diary-sweet-potato-harvest.jpg
+    출처: "Freshly harvested sweet potatoes.jpg — Obasi Ogbeyialu Precious, CC BY 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Freshly_harvested_sweet_potatoes.jpg"
+  - 파일: diary-market.jpg
+    출처: "South-Korea, Gyodong Island, Daeryong-ri (7), street market.jpg — Vincent van Zeijst, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:South-Korea,_Gyodong_Island,_Daeryong-ri_(7),_street_market.jpg"
