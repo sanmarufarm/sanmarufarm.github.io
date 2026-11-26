@@ -16,7 +16,7 @@
 전화번호: 010-9517-1633
 작은로고글자: 강화 교산리
 # 검색 결과 제목에 들어갈 대표 작물 (2~3개 추천)
-대표작물: [고구마, 고춧가루, 감자]
+대표작물: [순무, 고구마, 고춧가루]
 
 # 네이버 서치어드바이저 / 구글 서치콘솔에서 받은 인증 코드
 # (메타 태그 전체가 아니라 content="..." 따옴표 안의 글자만 붙여넣으세요)
@@ -32,12 +32,12 @@
   제목: |
     강화 교산리에서
     직접 기르고 거둔 농산물
-  설명: 고추, 고구마, 감자, 오이, 참깨, 들깨. 산마루 농원이 철마다 거둔 작물을 농원에서, 택배로 보내드립니다.
+  설명: 강화섬쌀과 순무, 고구마와 고춧가루, 콩·팥·깨, 집에서 담근 장과 순무김치까지. 산마루 농원이 철마다 거둔 것을 농원에서, 택배로 보내드립니다.
   사진:   # 6초마다 넘어갑니다. images 폴더 안의 파일 이름을 적으세요.
     - 파일: hero-1-ganghwa-field.jpg
       설명: 강화도 교산리 들녘
-    - 파일: hero-2-drying-chillies.jpg
-      설명: 햇볕에 고추를 말리는 모습
+    - 파일: red-pepper.jpg
+      설명: 꼭지를 따고 깨끗이 씻은 붉은 고추
     - 파일: hero-3-drying-sesame.jpg
       설명: 베어 세워 말리는 참깨 단
 
@@ -49,49 +49,116 @@
     농사짓습니다
   문단:
     - 산마루 농원은 강화도 북쪽, 고인돌이 남아 있는 양사면 교산리에서 부부가 함께 꾸려가는 농원입니다.
-    - 봄에는 감자와 고추 모종을 심고, 여름에는 오이와 고추를 따고, 가을에는 고구마를 캐고 깨를 텁니다. 그렇게 철마다 거둔 작물을 농원을 찾아오시는 분들께, 그리고 전화로 주문하시는 분들께 택배로 보내드립니다.
+    - 봄에는 감자와 고추 모종을 심고, 여름에는 오이와 고추를 따고, 가을에는 고구마와 순무를 캐고 콩과 깨를 텁니다. 그렇게 철마다 거둔 작물과 집에서 담근 장, 순무김치를 농원을 찾아오시는 분들께, 그리고 전화로 주문하시는 분들께 택배로 보내드립니다.
     - 큰 농장은 아니지만, 우리 식구가 먹는 것과 똑같이 길러 보냅니다.
 
-# ---------- 판매 작물 ----------
-# 작물을 추가하려면 '- 이름:' 묶음 하나를 통째로 복사해서 아래에 붙이고 내용을 바꾸세요.
+# ---------- 판매 품목 ----------
+# 품목을 추가하려면 '- 이름:' 묶음 하나를 통째로 복사해서 아래에 붙이고 내용을 바꾸세요.
 # 판매시작·판매끝은 월(1~12) 숫자입니다. 9월부터 이듬해 3월까지면 시작 9, 끝 3.
+# 일 년 내내 파는 품목은 '판매시작: 연중' 이라고만 쓰면 됩니다. (판매끝은 지우세요)
+# 분류: 같은 분류끼리 '판매품목'에서 묶여 보입니다.
+# 사진: images 폴더의 파일 이름. 사진이 없으면 비워 두세요. 품목 이름이 적힌 카드로 보입니다.
 # 판매를 잠시 멈추려면 '숨기기: 예' 를 넣으세요.
 작물:
+  # --- 채소 ---
   - 이름: 감자
+    분류: 채소
     판매시작: 6
     판매끝: 7
     사진: crop-potato.jpg
     설명: 하지 무렵 캐는 햇감자. 찌거나 볶아 드시기 좋습니다.
   - 이름: 오이
+    분류: 채소
     판매시작: 6
     판매끝: 9
     사진: crop-cucumber.jpg
     설명: 아침에 딴 오이를 그날 포장해 보냅니다. 오이지·오이소박이용으로 좋습니다.
-  - 이름: 풋고추
-    판매시작: 6
-    판매끝: 9
-    사진: crop-green-pepper.jpg
-    설명: 여름 내내 따는 풋고추. 쌈용·장아찌용으로 많이 찾으십니다.
-  - 이름: 고춧가루
-    판매시작: 9
-    판매끝: 3
-    사진: crop-gochugaru.jpg
-    설명: 가을에 거둔 붉은 고추를 말려 빻았습니다. 김장철에는 미리 주문해 주세요.
   - 이름: 고구마
+    분류: 채소
     판매시작: 9
     판매끝: 2
-    사진: crop-sweet-potato.jpg
+    사진: sweet-potato.jpg
     설명: 강화 밭에서 캔 고구마. 수확 후 숙성하면 단맛이 더 깊어집니다.
+  - 이름: 순무
+    분류: 채소
+    판매시작: 10
+    판매끝: 12
+    사진: ""
+    설명: 강화 특산 순무. 순무김치나 깍두기를 담그기 좋습니다.
+
+  # --- 쌀·잡곡 ---
+  - 이름: 강화섬쌀
+    분류: 쌀·잡곡
+    판매시작: 연중
+    사진: ""
+    설명: 강화 들녘에서 거둔 강화섬쌀입니다. 필요한 양을 말씀해 주세요.
+  - 이름: 콩 (검정서리태·청서리태·선비콩)
+    분류: 쌀·잡곡
+    판매시작: 11
+    판매끝: 6
+    사진: ""
+    설명: 검정서리태, 청서리태, 선비콩. 밥에 넣어 드시기 좋습니다.
+  - 이름: 팥
+    분류: 쌀·잡곡
+    판매시작: 10
+    판매끝: 6
+    사진: ""
+    설명: 국산 팥. 팥죽·팥밥·떡고물용으로 좋습니다.
+  - 이름: 청조 (좁쌀)
+    분류: 쌀·잡곡
+    판매시작: 10
+    판매끝: 6
+    사진: ""
+    설명: 강화에서 기른 조(좁쌀). 밥에 섞어 지으면 고소합니다.
   - 이름: 참깨
+    분류: 쌀·잡곡
     판매시작: 9
     판매끝: 2
     사진: crop-sesame.jpg
     설명: 직접 베어 말리고 털어낸 국산 참깨입니다.
   - 이름: 들깨
+    분류: 쌀·잡곡
     판매시작: 10
     판매끝: 3
     사진: crop-perilla.jpg
     설명: 가을 끝에 털어낸 국산 들깨. 들깨가루·탕 요리에 좋습니다.
+
+  # --- 고춧가루·기름·장·김치 ---
+  - 이름: 고춧가루
+    분류: 고춧가루·기름·장·김치
+    판매시작: 9
+    판매끝: 3
+    사진: crop-gochugaru.jpg
+    설명: 붉은 고추의 꼭지를 따고 깨끗이 씻어 말린 뒤 빻았습니다. 김장철에는 미리 주문해 주세요.
+  - 이름: 들기름
+    분류: 고춧가루·기름·장·김치
+    판매시작: 연중
+    사진: ""
+    설명: 국산 들깨로 짠 들기름입니다.
+  - 이름: 순무김치
+    분류: 고춧가루·기름·장·김치
+    판매시작: 10
+    판매끝: 3
+    사진: ""
+    설명: 강화 순무로 직접 담근 순무김치입니다.
+  - 이름: 고추장
+    분류: 고춧가루·기름·장·김치
+    판매시작: 연중
+    사진: ""
+    설명: 집에서 직접 담근 고추장입니다.
+  - 이름: 된장
+    분류: 고춧가루·기름·장·김치
+    판매시작: 연중
+    사진: ""
+    설명: 집에서 직접 담근 된장입니다.
+
+  # 판매하지 않는 품목 (다시 팔게 되면 '숨기기: 예' 줄을 지우세요)
+  - 이름: 풋고추
+    숨기기: 예
+    판매시작: 6
+    판매끝: 9
+    사진: crop-green-pepper.jpg
+    설명: 여름 내내 따는 풋고추. 쌈용·장아찌용으로 많이 찾으십니다.
 
 # 판매 달력에서 파는 작물이 없는 달에 보이는 문구
 판매없는달문구: 모종을 심는 달
@@ -127,13 +194,13 @@
     때: 여름
     사진: crop-green-pepper.jpg
     내용: 풋고추부터 붉게 익은 고추까지, 여름 내내 며칠에 한 번씩 고추밭을 돕니다.
-  - 제목: 고추 말리기
+  - 제목: 고추 손질하기
     때: 늦여름
-    사진: hero-2-drying-chillies.jpg
-    내용: 딴 고추를 손질해 말립니다. 잘 마른 고추만 골라 고춧가루를 빻습니다.
+    사진: red-pepper.jpg
+    내용: 붉은 고추의 꼭지를 하나하나 따고 깨끗이 씻어 말립니다. 잘 마른 고추만 골라 고춧가루를 빻습니다.
   - 제목: 고구마 캐는 날
     때: 가을
-    사진: diary-sweet-potato-harvest.jpg
+    사진: sweet-potato.jpg
     내용: 서리가 내리기 전에 고구마를 캡니다. 상처 나지 않게 골라 담습니다.
   - 제목: 깨 말리기
     때: 가을
@@ -156,6 +223,8 @@
     답: 전화나 문자({전화번호})로 원하시는 작물과 양, 받으실 주소를 알려주세요. 가격과 보내드릴 날짜를 안내해 드리고 택배로 보내드립니다.
   - 질문: 강화 고구마는 언제 살 수 있나요?
     답: 강화 고구마는 9월부터 11월까지 수확하고, 숙성·저장한 고구마는 이듬해 2월까지 판매합니다. 재고가 떨어지면 일찍 마감될 수 있습니다.
+  - 질문: 강화 순무와 순무김치는 언제 살 수 있나요?
+    답: 순무는 10월부터 12월까지, 순무김치는 10월부터 이듬해 3월까지 판매합니다. 김장철에는 일찍 마감될 수 있으니 미리 연락 주세요.
   - 질문: 몇 월에 어떤 작물을 살 수 있나요?
     답: 자동
   - 질문: 김장용 고춧가루를 미리 주문할 수 있나요?
@@ -168,18 +237,45 @@
     답: 강화읍 강화풍물시장 장날(2·7일장)에 나가 판매할 때가 있습니다. 매번 나가지는 않으니 전화로 미리 확인해 주세요.
 
 # ---------- 사진 출처 ----------
-# 직접 찍은 사진으로 모두 바꾸면 이 목록을 지우고 '사진출처: []' 로 두세요.
+# 위키미디어 공용의 임시 사진 출처입니다. 홈페이지에 실제로 쓰이는 사진의 출처만 자동으로 표시됩니다.
+# 직접 찍은 사진은 여기에 적을 필요가 없습니다.
 사진출처:
-  - 'A Field in Ganghwa Island.jpg — Nt, CC0 | https://commons.wikimedia.org/wiki/File:A_Field_in_Ganghwa_Island.jpg'
-  - 'Drying Korean chillies.jpg — ASADAL, Inc., CC BY 2.0 kr | https://commons.wikimedia.org/wiki/File:Drying_Korean_chillies.jpg'
-  - 'Drying sesame stalks.jpg — Fumikas Sagisavas, CC0 | https://commons.wikimedia.org/wiki/File:Drying_sesame_stalks.jpg'
-  - 'A Road between Paddies in Ganghwa Island.jpg — Nt, CC0 | https://commons.wikimedia.org/wiki/File:A_Road_between_Paddies_in_Ganghwa_Island.jpg'
-  - 'Patate appena raccolte.jpg — PROPOLI87, CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Patate_appena_raccolte.jpg'
-  - '조선오이.jpg — 킹덤, CC BY 4.0 | https://commons.wikimedia.org/wiki/File:%EC%A1%B0%EC%84%A0%EC%98%A4%EC%9D%B4.jpg'
-  - 'Korean chilli.jpg — Park Jong-jin, CC BY 2.0 kr | https://commons.wikimedia.org/wiki/File:Korean_chilli.jpg'
-  - 'Korean chilli powder.jpg — ASADAL, Inc., CC BY 2.0 kr | https://commons.wikimedia.org/wiki/File:Korean_chilli_powder.jpg'
-  - "Korean's Sweet Potatoes on the basket in Vegetable Shop at Tuen Mun.jpg — Peachyeung316, CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Korean%27s_Sweet_Potatoes_on_the_basket_in_Vegetable_Shop_at_Tuen_Mun.jpg"
-  - 'A sesame plant with flowers and pods.jpg — Sanjib Chaudhary, CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:A_sesame_plant_with_flowers_and_pods.jpg'
-  - 'Perilla seeds.jpg — ally j, CC0 | https://commons.wikimedia.org/wiki/File:Perilla_seeds.jpg'
-  - 'Freshly harvested sweet potatoes.jpg — Obasi Ogbeyialu Precious, CC BY 4.0 | https://commons.wikimedia.org/wiki/File:Freshly_harvested_sweet_potatoes.jpg'
-  - 'South-Korea, Gyodong Island, Daeryong-ri (7), street market.jpg — Vincent van Zeijst, CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:South-Korea,_Gyodong_Island,_Daeryong-ri_(7),_street_market.jpg'
+  - 파일: hero-1-ganghwa-field.jpg
+    출처: "A Field in Ganghwa Island.jpg — Nt, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_Field_in_Ganghwa_Island.jpg"
+  - 파일: hero-2-drying-chillies.jpg
+    출처: "Drying Korean chillies.jpg — ASADAL, Inc., CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Drying_Korean_chillies.jpg"
+  - 파일: hero-3-drying-sesame.jpg
+    출처: "Drying sesame stalks.jpg — Fumikas Sagisavas, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:Drying_sesame_stalks.jpg"
+  - 파일: about-ganghwa-road.jpg
+    출처: "A Road between Paddies in Ganghwa Island.jpg — Nt, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_Road_between_Paddies_in_Ganghwa_Island.jpg"
+  - 파일: crop-potato.jpg
+    출처: "Patate appena raccolte.jpg — PROPOLI87, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Patate_appena_raccolte.jpg"
+  - 파일: crop-cucumber.jpg
+    출처: "조선오이.jpg — 킹덤, CC BY 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:%EC%A1%B0%EC%84%A0%EC%98%A4%EC%9D%B4.jpg"
+  - 파일: crop-green-pepper.jpg
+    출처: "Korean chilli.jpg — Park Jong-jin, CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean_chilli.jpg"
+  - 파일: crop-gochugaru.jpg
+    출처: "Korean chilli powder.jpg — ASADAL, Inc., CC BY 2.0 kr"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean_chilli_powder.jpg"
+  - 파일: crop-sweet-potato.jpg
+    출처: "Korean's Sweet Potatoes on the basket in Vegetable Shop at Tuen Mun.jpg — Peachyeung316, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Korean%27s_Sweet_Potatoes_on_the_basket_in_Vegetable_Shop_at_Tuen_Mun.jpg"
+  - 파일: crop-sesame.jpg
+    출처: "A sesame plant with flowers and pods.jpg — Sanjib Chaudhary, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:A_sesame_plant_with_flowers_and_pods.jpg"
+  - 파일: crop-perilla.jpg
+    출처: "Perilla seeds.jpg — ally j, CC0"
+    링크: "https://commons.wikimedia.org/wiki/File:Perilla_seeds.jpg"
+  - 파일: diary-sweet-potato-harvest.jpg
+    출처: "Freshly harvested sweet potatoes.jpg — Obasi Ogbeyialu Precious, CC BY 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:Freshly_harvested_sweet_potatoes.jpg"
+  - 파일: diary-market.jpg
+    출처: "South-Korea, Gyodong Island, Daeryong-ri (7), street market.jpg — Vincent van Zeijst, CC BY-SA 4.0"
+    링크: "https://commons.wikimedia.org/wiki/File:South-Korea,_Gyodong_Island,_Daeryong-ri_(7),_street_market.jpg"
